@@ -1,0 +1,98 @@
+<table mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="name">
+    <th class="header" mat-header-cell *matHeaderCellDef>
+      Name
+      <mat-form-field class="filter" floatLabel="never">
+        <mat-label>Search</mat-label>
+        <input matInput [formControl]="nameFilter">
+      </mat-form-field>
+    </th>
+    <td mat-cell *matCellDef="let person">{{person.name}}</td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+  <ng-container matColumnDef="lastname">
+    <th class="header" mat-header-cell *matHeaderCellDef>
+      Lastname
+      <mat-form-field class="filter" floatLabel="never">
+        <mat-label>Search</mat-label>
+        <input matInput [formControl]="lastnameFilter">
+      </mat-form-field>
+    </th>
+    <td mat-cell *matCellDef="let person">{{person.lastname}}</td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+  <ng-container matColumnDef="section">
+    <th class="header" mat-header-cell *matHeaderCellDef>
+      Section
+      <!--<mat-form-field class="filter" floatLabel="never">
+        <mat-label>Search</mat-label>
+        <input matInput [formControl]="sectionFilter">
+      </mat-form-field>-->
+      <mat-form-field class="filter" floatLabel="never">
+        <mat-label>Toppings</mat-label>
+        <mat-select [formControl]="sectionFilter" multiple placeholder="Toppings">
+          <mat-option *ngFor="let section of toppingList" [value]="section" >{{section}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </th>
+    <td mat-cell *matCellDef="let person">{{person.section}}</td>
+    <td mat-footer-cell *matFooterCellDef>Total:</td>
+  </ng-container>
+  <ng-container matColumnDef="salary">
+    <th class="header" mat-header-cell *matHeaderCellDef>
+      Salary
+      <mat-form-field class="filter" floatLabel="never">
+        <mat-label>From</mat-label>
+        <input matInput [formControl]="FromSalaryFilter">
+      </mat-form-field>
+      <mat-form-field class="filter" floatLabel="never">
+        <mat-label>To</mat-label>
+        <input matInput [formControl]="ToSalaryFilter">
+      </mat-form-field>
+    </th>
+    <td mat-cell *matCellDef="let person">{{person.salary}}</td>
+    <td mat-footer-cell *matFooterCellDef> {{getTotalCost()}} </td>
+  </ng-container>
+  <ng-container matColumnDef="currency">
+    <th class="header" mat-header-cell *matHeaderCellDef>
+      Currency
+      <mat-form-field class="filter" floatLabel="never">
+        <mat-label>Search</mat-label>
+        <input matInput [formControl]="currencyFilter">
+      </mat-form-field>
+    </th>
+    <td mat-cell *matCellDef="let person">{{person.currency}}</td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+  
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row 
+    *matRowDef="let person; columns: columnsToDisplay"></tr>
+  <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr>
+</table>
+
+<div>
+  <div class="container">
+    <div class="inputContainer">
+      <input class="add" [(ngModel)]="newName" type="text" placeholder="Name">
+      <input class="add" [(ngModel)]="newLastname" type="text" placeholder="Lastname">
+      <input class="add" [(ngModel)]="newSection" type="text" placeholder="Section">
+      <input class="add" [(ngModel)]="newSalary" type="number" placeholder="Salary">
+      <input class="add" [(ngModel)]="newCurrency" type="text" placeholder="Currency">
+      <button (click)="add()">Dodaj</button>
+    </div>
+  </div>
+</div>
+
+
+
+<table class="summary">
+  <td>
+    <tr class="th">Section</tr>
+  <tr *ngFor="let section of toppingList">{{section}}</tr>
+  </td>
+  <td>
+    <tr class="th">Summary</tr>
+  <tr *ngFor="let salary of SectionSalary">{{salary}}</tr>
+</td>
+</table>
